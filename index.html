@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="title">მიხეილი — ხელნაკეთი ტყავის ნაწარმი</title>
+<meta name="description" content="Handmade leather goods by Mikhail — wallets, knife sheaths, bookmarks. Georgia. +995 555 34 92 19">
+<!--
+  КАК ЗАПУСТИТЬ:
+  1. Сохраните файл как index.html
+  2. Рядом создайте папку "img" и положите 9 картинок:
+     img/hero.jpg        — верстак с инструментами и изделиями
+     img/wallet.jpg      — кошелёк
+     img/sheath.jpg      — ножны с ножом
+     img/bookmark.jpg    — закладки на книге
+     img/accessories.jpg — ремень, брелок, браслет, картхолдер
+     img/craftsman.jpg   — руки мастера, шитьё
+     img/selection.jpg   — выбор кожи (рулоны)
+     img/cutting.jpg     — крой круглым ножом
+     img/polishing.jpg   — полировка воском
+  3. Откройте index.html в браузере
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --brown-900:#221408; --brown-800:#33200f; --brown-700:#4a2e17;
+    --tan:#b0713a; --tan-dark:#96591f; --tan-light:#e8b877;
+    --cream:#f6efe6; --cream-2:#efe4d4; --text:#2b1c10;
+  }
+  html{scroll-behavior:smooth;scroll-padding-top:90px}
+  body{font-family:'Noto Sans Georgian','Noto Sans',system-ui,sans-serif;background:var(--cream);color:var(--text);line-height:1.6}
+  body.menu-open{overflow:hidden}
+  img{display:block;max-width:100%}
+  a{text-decoration:none;color:inherit}
+
+  /* ===== HEADER ===== */
+  .header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:16px;
+    padding:12px 18px;background:rgba(246,239,230,.93);backdrop-filter:blur(8px);
+    box-shadow:0 1px 0 rgba(43,28,16,.15)}
+  .burger{width:46px;height:46px;border:none;background:var(--brown-800);border-radius:12px;cursor:pointer;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;transition:.25s;flex-shrink:0}
+  .burger span{display:block;width:22px;height:3px;background:var(--cream);border-radius:2px;transition:.3s}
+  .burger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .burger.active span:nth-child(2){opacity:0}
+  .burger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  .brand{font-weight:800;letter-spacing:.14em;color:var(--brown-800);font-size:1rem}
+  .brand em{font-style:normal;color:var(--tan)}
+  .lang-switch{margin-left:auto;display:flex;gap:6px}
+  .lang-btn{padding:6px 11px;border:1px solid rgba(43,28,16,.3);border-radius:999px;background:transparent;
+    cursor:pointer;font-weight:700;font-size:12px;color:var(--text);font-family:inherit;transition:.2s}
+  .lang-btn.active{background:var(--tan);border-color:var(--tan);color:#fff}
+
+  /* ===== SIDEBAR (left) ===== */
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:300px;max-width:85vw;z-index:200;
+    background:linear-gradient(180deg,#2a1a0e,#180e05);color:var(--cream);
+    transform:translateX(-105%);transition:transform .35s ease;
+    display:flex;flex-direction:column;padding:20px 26px;overflow-y:auto}
+  .sidebar.open{transform:none}
+  .sidebar-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+  .sidebar-top .brand{color:var(--cream)}
+  .close-side{background:none;border:none;color:var(--cream);font-size:30px;cursor:pointer;line-height:1}
+  .side-nav a{display:block;padding:14px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,.09);transition:.2s}
+  .side-nav a:hover{color:var(--tan-light);padding-left:10px}
+  .side-bottom{margin-top:auto;padding-top:28px;display:flex;flex-direction:column;gap:16px}
+  .side-bottom .lang-btn{border-color:rgba(255,255,255,.35);color:var(--cream)}
+  .side-phone{display:block;text-align:center;padding:13px;border-radius:999px;background:var(--tan);color:#fff;font-weight:700}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:150;opacity:0;pointer-events:none;transition:.3s}
+  .overlay.show{opacity:1;pointer-events:auto}
+
+  /* ===== HERO ===== */
+  .hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;
+    background:linear-gradient(rgba(24,12,4,.55),rgba(24,12,4,.8)),url('img/hero.jpg') center/cover no-repeat}
+  .hero-inner{max-width:820px;padding:120px 20px 80px}
+  .badge{display:inline-block;padding:8px 18px;border:1px solid rgba(255,255,255,.45);border-radius:999px;
+    letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:600;background:rgba(0,0,0,.3)}
+  .hero h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:800;line-height:1.15;margin:20px 0 16px}
+  .hero p{font-size:clamp(1rem,2.2vw,1.25rem);opacity:.93;max-width:640px;margin:0 auto}
+  .btns{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-block;padding:14px 28px;border-radius:999px;font-weight:700;transition:.25s;font-size:1rem}
+  .btn-primary{background:var(--tan);color:#fff;box-shadow:0 8px 22px rgba(176,113,58,.45)}
+  .btn-primary:hover{background:var(--tan-dark);transform:translateY(-2px)}
+  .btn-ghost{border:2px solid rgba(255,255,255,.7);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.14)}
+  .btn-wa{background:#1daf55;color:#fff}
+  .btn-wa:hover{background:#158b43;transform:translateY(-2px)}
+
+  /* ===== SECTIONS ===== */
+  .section{padding:90px 20px}
+  .container{max-width:1100px;margin:0 auto}
+  .section-title{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;text-align:center;margin-bottom:12px}
+  .section-sub{text-align:center;opacity:.8;max-width:660px;margin:0 auto 50px}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .about-grid img{border-radius:20px;box-shadow:0 18px 40px rgba(43,28,16,.25);width:100%;height:100%;object-fit:cover}
+  .about-text h2{text-align:left;margin-bottom:18px}
+  .about-text p{margin-bottom:14px}
+  .stats{display:flex;gap:36px;margin-top:26px;flex-wrap:wrap}
+  .stat b{font-size:1.9rem;color:var(--tan);display:block;line-height:1.1}
+  .stat span{font-size:.85rem;opacity:.75}
+
+  /* Products */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px}
+  .card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(43,28,16,.12);
+    display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(43,28,16,.2)}
+  .card img{width:100%;height:220px;object-fit:cover}
+  .card-body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .card h3{font-size:1.2rem;font-weight:800}
+  .card p{font-size:.95rem;opacity:.85;flex:1}
+  .order-btn{align-self:flex-start;padding:10px 22px;border-radius:999px;background:var(--brown-700);color:#fff;
+    font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:.2s}
+  .order-btn:hover{background:var(--tan)}
+
+  /* Process (ход работы) */
+  .process{background:var(--cream-2)}
+  .grid-process{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px}
+  .step{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(43,28,16,.12);position:relative;
+    transition:transform .3s,box-shadow .3s}
+  .step:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(43,28,16,.2)}
+  .step img{width:100%;height:190px;object-fit:cover}
+  .step-num{position:absolute;top:12px;left:12px;width:44px;height:44px;border-radius:50%;background:var(--tan);
+    color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:1rem;
+    box-shadow:0 6px 16px rgba(0,0,0,.3)}
+  .step-body{padding:20px 22px}
+  .step-body h3{margin-bottom:8px;font-size:1.1rem;font-weight:800}
+  .step-body p{font-size:.93rem;opacity:.85}
+
+  /* Why — иконки ОДНОГО цвета */
+  .grid-why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:26px}
+  .why-card{background:#fff;padding:30px 24px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(43,28,16,.1)}
+  .why-icon{width:64px;height:64px;margin:0 auto 16px;border-radius:50%;background:rgba(176,113,58,.14);
+    display:flex;align-items:center;justify-content:center;color:var(--tan)}
+  .why-icon svg{width:30px;height:30px}
+  .why-card h3{font-size:1.05rem;margin-bottom:8px}
+  .why-card p{font-size:.92rem;opacity:.8}
+
+  /* Contact */
+  .contact{background:var(--brown-900);color:var(--cream);text-align:center}
+  .contact .section-sub{margin-bottom:30px}
+  .contact-label{opacity:.65;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase}
+  .phone{display:block;font-size:clamp(1.5rem,4.5vw,2.4rem);font-weight:800;color:var(--tan-light);margin:8px 0 6px}
+  .phone:hover{color:#fff}
+  .location{opacity:.8;margin-bottom:30px}
+
+  footer{background:#150b03;color:#cbb59a;text-align:center;padding:22px 16px;font-size:.85rem}
+
+  @media(max-width:900px){
+    .about-grid{grid-template-columns:1fr}
+    .about-text h2{text-align:center}
+    .stats{justify-content:center}
+  }
+  @media(max-width:520px){
+    .header .lang-switch{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <a class="brand" href="#home">MIKHAIL <em>LEATHER</em></a>
+  <div class="lang-switch">
+    <button class="lang-btn" data-lang="ge">GE</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="tr">TR</button>
+  </div>
+</header>
+
+<!-- LEFT SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <span class="brand">MIKHAIL <em>LEATHER</em></span>
+    <button class="close-side" id="closeSide" aria-label="Close">&times;</button>
+  </div>
+  <nav class="side-nav">
+    <a href="#home" data-i18n="nav_home">მთავარი</a>
+    <a href="#about" data-i18n="nav_about">ჩვენ შესახებ</a>
+    <a href="#products" data-i18n="nav_products">პროდუქცია</a>
+    <a href="#process" data-i18n="nav_process">პროცესი</a>
+    <a href="#why" data-i18n="nav_why">უპირატესობები</a>
+    <a href="#contact" data-i18n="nav_contact">კონტაქტი</a>
+  </nav>
+  <div class="side-bottom">
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="ge">GE</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="tr">TR</button>
+    </div>
+    <a class="side-phone" href="tel:+995555349219">+995 555 34 92 19</a>
+  </div>
+</aside>
+<div class="overlay" id="overlay"></div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <span class="badge" data-i18n="hero_badge">ხელნაკეთი საქართველოდან</span>
+    <h1 data-i18n="hero_title">ხელნაკეთი ტყავის ნაწარმი</h1>
+    <p data-i18n="hero_subtitle">საფულეები, დანის ყდები, სანიშნეები და აქსესუარები — ბუნებრივი ტყავისგან, დამზადებული სიყვარულითა და ოსტატობით.</p>
+    <div class="btns">
+      <a class="btn btn-primary" href="#contact" data-i18n="hero_cta1">შეუკვეთეთ ახლავე</a>
+      <a class="btn btn-ghost" href="#products" data-i18n="hero_cta2">პროდუქციის ნახვა</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container about-grid">
+    <img src="img/craftsman.jpg" alt="Mikhail leather craftsman at work">
+    <div class="about-text">
+      <h2 class="section-title" data-i18n="about_title">ჩვენ შესახებ</h2>
+      <p data-i18n="about_text1">გამარჯობა! მე ვარ მიხეილი — ტყავის ოსტატი. ყველა ნაწარმი მზადდება ხელით, საუკეთესო ბუნებრივი ტყავისგან.</p>
+      <p data-i18n="about_text2">ჩემს სახელოსნოში იქმნება უნიკალური ნივთები, რომლებიც წლების განმავლობაში გემსახურებათ. დიზაინიდან ბოლო ნაკერამდე — ყველა დეტალი გააზრებულია.</p>
+      <div class="stats">
+        <div class="stat"><b>10+</b><span data-i18n="stat1">წლის გამოცდილება</span></div>
+        <div class="stat"><b>500+</b><span data-i18n="stat2">კმაყოფილი კლიენტი</span></div>
+        <div class="stat"><b>1000+</b><span data-i18n="stat3">უნიკალური ნაწარმი</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <h2 class="section-title" data-i18n="products_title">პროდუქცია</h2>
+  <p class="section-sub" data-i18n="products_subtitle">ყოველი ნივთი მზადდება ხელით, ბუნებრივი ტყავისგან. შესაძლებელია ინდივიდუალური შეკვეთაც.</p>
+  <div class="container grid">
+    <div class="card">
+      <img src="img/wallet.jpg" alt="Leather wallet">
+      <div class="card-body">
+        <h3 data-i18n="p1_title">საფულეები</h3>
+        <p data-i18n="p1_desc">კლასიკური და თანამედროვე საფულეები ბუნებრივი ტყავისგან — გამძლე, ელეგანტური და პრაქტიკული.</p>
+        <button class="order-btn" data-product="p1" data-i18n="order_btn">შეკვეთა</button>
+      </div>
+    </div>
+    <div class="card">
+      <img src="img/sheath.jpg" alt="Leather knife sheath">
+      <div class="card-body">
+        <h3 data-i18n="p2_title">დანის ყდები</h3>
+        <p data-i18n="p2_desc">ხელნაკეთი ყდები ნებისმიერი ზომის დანისთვის — საიმედო დაცვა და ლამაზი დიზაინი.</p>
+        <button class="order-btn" data-product="p2" data-i18n="order_btn">შეკვეთა</button>
+      </div>
+    </div>
+    <div class="card">
+      <img src="img/bookmark.jpg" alt="Leather bookmarks">
+      <div class="card-body">
+        <h3 data-i18n="p3_title">სანიშნეები</h3>
+        <p data-i18n="p3_desc">ელეგანტური ტყავის სანიშნეები წიგნის მოყვარულთათვის — იდეალური საჩუქარი.</p>
+        <button class="order-btn" data-product="p3" data-i18n="order_btn">შეკვეთა</button>
+      </div>
+    </div>
+    <div class="card">
+      <img src="img/accessories.jpg" alt="Leather accessories">
+      <div class="card-body">
+        <h3 data-i18n="p4_title">აქსესუარები</h3>
+        <p data-i18n="p4_desc">ღვედები, საკვანძოები, სამაჯურები და სხვა აქსესუარები თქვენი სტილისთვის.</p>
+        <button class="order-btn" data-product="p4" data-i18n="order_btn">შეკვეთა</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS / ХОД РАБОТЫ -->
+<section class="section process" id="process">
+  <h2 class="section-title" data-i18n="process_title">წარმოების პროცესი</h2>
+  <p class="section-sub" data-i18n="process_subtitle">ტყავის შერჩევიდან ფინიშურ პოლირებამდე — ყველა ეტაპი სრულდება ხელით.</p>
+  <div class="container grid-process">
+    <div class="step">
+      <img src="img/selection.jpg" alt="Leather selection">
+      <span class="step-num">01</span>
+      <div class="step-body">
+        <h3 data-i18n="s1_title">ტყავის შერჩევა</h3>
+        <p data-i18n="s1_desc">ვარჩევთ საუკეთესო ბუნებრივ ტყავს — მხოლოდ მაღალი ხარისხის მასალა.</p>
+      </div>
+    </div>
+    <div class="step">
+      <img src="img/cutting.jpg" alt="Cutting the leather">
+      <span class="step-num">02</span>
+      <div class="step-body">
+        <h3 data-i18n="s2_title">კროი</h3>
+        <p data-i18n="s2_desc">ზუსტი კროი ლეზითა და სახაზავით — ყველა დეტალი იდეალურად ჯდება.</p>
+      </div>
+    </div>
+    <div class="step">
+      <img src="img/craftsman.jpg" alt="Hand stitching">
+      <span class="step-num">03</span>
+      <div class="step-body">
+        <h3 data-i18n="s3_title">კერვა</h3>
+        <p data-i18n="s3_desc">ხელით კერვა ცვილიანი ძაფით — გამძლე და ლამაზი ნაკერი.</p>
+      </div>
+    </div>
+    <div class="step">
+      <img src="img/polishing.jpg" alt="Final polishing">
+      <span class="step-num">04</span>
+      <div class="step-body">
+        <h3 data-i18n="s4_title">ფინიშური პოლირება</h3>
+        <p data-i18n="s4_desc">კიდეების პოლირება და ცვილით დამუშავება — სრულყოფილი იერსახე.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section" id="why">
+  <h2 class="section-title" data-i18n="why_title">რატომ ჩვენ?</h2>
+  <p class="section-sub" data-i18n="why_subtitle">ხარისხი, რომელსაც ყოველ შეხებაზე იგრძნობთ</p>
+  <div class="container grid-why">
+    <div class="why-card">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      </div>
+      <h3 data-i18n="w1_title">ბუნებრივი ტყავი</h3><p data-i18n="w1_desc">ვიყენებთ მხოლოდ მაღალი ხარისხის ბუნებრივ ტყავს.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+      </div>
+      <h3 data-i18n="w2_title">100% ხელნაკეთი</h3><p data-i18n="w2_desc">ყოველი ნაწარმი მზადდება ხელით, დიდი სიყვარულით.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+      </div>
+      <h3 data-i18n="w3_title">ინდივიდუალური დიზაინი</h3><p data-i18n="w3_desc">დავამზადებთ თქვენი სურვილისამებრ — ზომა, ფერი, გრავირება.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+      </div>
+      <h3 data-i18n="w4_title">სწრაფი მიწოდება</h3><p data-i18n="w4_desc">მიწოდება საქართველოსა და მსოფლიოს მასშტაბით.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <h2 class="section-title" data-i18n="contact_title">კონტაქტი</h2>
+  <p class="section-sub" data-i18n="contact_subtitle">დამიკავშირდით ნებისმიერ დროს — სიამოვნებით გიპასუხებთ!</p>
+  <span class="contact-label" data-i18n="phone_label">ტელეფონი</span>
+  <a class="phone" href="tel:+995555349219">+995 555 34 92 19</a>
+  <div class="location">📍 <span data-i18n="location">საქართველო</span></div>
+  <div class="btns">
+    <a class="btn btn-primary" href="tel:+995555349219" data-i18n="call_btn">დარეკვა</a>
+    <a class="btn btn-wa" href="https://wa.me/995555349219" target="_blank" rel="noopener" data-i18n="wa_btn">WhatsApp-ით წერა</a>
+  </div>
+</section>
+
+<footer><p data-i18n="footer_text">© 2026 მიხეილი — ხელნაკეთი ტყავის ნაწარმი. ყველა უფლება დაცულია.</p></footer>
+
+<script>
+const PHONE_WA = "995555349219";
+const T = {
+  "ge": {
+    "title":"მიხეილი — ხელნაკეთი ტყავის ნაწარმი",
+    "nav_home":"მთავარი","nav_about":"ჩვენ შესახებ","nav_products":"პროდუქცია","nav_process":"პროცესი","nav_why":"უპირატესობები","nav_contact":"კონტაქტი",
+    "hero_badge":"ხელნაკეთი საქართველოდან","hero_title":"ხელნაკეთი ტყავის ნაწარმი",
+    "hero_subtitle":"საფულეები, დანის ყდები, სანიშნეები და აქსესუარები — ბუნებრივი ტყავისგან, დამზადებული სიყვარულითა და ოსტატობით.",
+    "hero_cta1":"შეუკვეთეთ ახლავე","hero_cta2":"პროდუქციის ნახვა",
+    "about_title":"ჩვენ შესახებ",
+    "about_text1":"გამარჯობა! მე ვარ მიხეილი — ტყავის ოსტატი. ყველა ნაწარმი მზადდება ხელით, საუკეთესო ბუნებრივი ტყავისგან.",
+    "about_text2":"ჩემს სახელოსნოში იქმნება უნიკალური ნივთები, რომლებიც წლების განმავლობაში გემსახურებათ. დიზაინიდან ბოლო ნაკერამდე — ყველა დეტალი გააზრებულია.",
+    "stat1":"წლის გამოცდილება","stat2":"კმაყოფილი კლიენტი","stat3":"უნიკალური ნაწარმი",
+    "products_title":"პროდუქცია","products_subtitle":"ყოველი ნივთი მზადდება ხელით, ბუნებრივი ტყავისგან. შესაძლებელია ინდივიდუალური შეკვეთაც.",
+    "p1_title":"საფულეები","p1_desc":"კლასიკური და თანამედროვე საფულეები ბუნებრივი ტყავისგან — გამძლე, ელეგანტური და პრაქტიკული.",
+    "p2_title":"დანის ყდები","p2_desc":"ხელნაკეთი ყდები ნებისმიერი ზომის დანისთვის — საიმედო დაცვა და ლამაზი დიზაინი.",
+    "p3_title":"სანიშნეები","p3_desc":"ელეგანტური ტყავის სანიშნეები წიგნის მოყვარულთათვის — იდეალური საჩუქარი.",
+    "p4_title":"აქსესუარები","p4_desc":"ღვედები, საკვანძოები, სამაჯურები და სხვა აქსესუარები თქვენი სტილისთვის.",
+    "order_btn":"შეკვეთა","order_msg":"გამარჯობა! მსურს შევუკვეთო:",
+    "process_title":"წარმოების პროცესი","process_subtitle":"ტყავის შერჩევიდან ფინიშურ პოლირებამდე — ყველა ეტაპი სრულდება ხელით.",
+    "s1_title":"ტყავის შერჩევა","s1_desc":"ვარჩევთ საუკეთესო ბუნებრივ ტყავს — მხოლოდ მაღალი ხარისხის მასალა.",
+    "s2_title":"კროი","s2_desc":"ზუსტი კროი ლეზითა და სახაზავით — ყველა დეტალი იდეალურად ჯდება.",
+    "s3_title":"კერვა","s3_desc":"ხელით კერვა ცვილიანი ძაფით — გამძლე და ლამაზი ნაკერი.",
+    "s4_title":"ფინიშური პოლირება","s4_desc":"კიდეების პოლირება და ცვილით დამუშავება — სრულყოფილი იერსახე.",
+    "why_title":"რატომ ჩვენ?","why_subtitle":"ხარისხი, რომელსაც ყოველ შეხებაზე იგრძნობთ",
+    "w1_title":"ბუნებრივი ტყავი","w1_desc":"ვიყენებთ მხოლოდ მაღალი ხარისხის ბუნებრივ ტყავს.",
+    "w2_title":"100% ხელნაკეთი","w2_desc":"ყოველი ნაწარმი მზადდება ხელით, დიდი სიყვარულით.",
+    "w3_title":"ინდივიდუალური დიზაინი","w3_desc":"დავამზადებთ თქვენი სურვილისამებრ — ზომა, ფერი, გრავირება.",
+    "w4_title":"სწრაფი მიწოდება","w4_desc":"მიწოდება საქართველოსა და მსოფლიოს მასშტაბით.",
+    "contact_title":"კონტაქტი","contact_subtitle":"დამიკავშირდით ნებისმიერ დროს — სიამოვნებით გიპასუხებთ!",
+    "phone_label":"ტელეფონი","location":"საქართველო","call_btn":"დარეკვა","wa_btn":"WhatsApp-ით წერა",
+    "footer_text":"© 2026 მიხეილი — ხელნაკეთი ტყავის ნაწარმი. ყველა უფლება დაცულია."
+  },
+  "en": {
+    "title":"Mikhail — Handmade Leather Goods",
+    "nav_home":"Home","nav_about":"About","nav_products":"Products","nav_process":"Process","nav_why":"Why us","nav_contact":"Contact",
+    "hero_badge":"Handmade in Georgia","hero_title":"Handmade Leather Goods",
+    "hero_subtitle":"Wallets, knife sheaths, bookmarks and accessories — crafted from natural leather with love and mastery.",
+    "hero_cta1":"Order now","hero_cta2":"View products",
+    "about_title":"About me",
+    "about_text1":"Hello! I'm Mikhail — a leather craftsman. Every piece is handmade from the finest natural leather.",
+    "about_text2":"In my workshop I create unique items that will serve you for years. Every detail is thought through — from the design to the final stitch.",
+    "stat1":"years of experience","stat2":"happy customers","stat3":"unique items",
+    "products_title":"Products","products_subtitle":"Every item is handmade from natural leather. Custom orders are welcome.",
+    "p1_title":"Wallets","p1_desc":"Classic and modern wallets made of genuine leather — durable, elegant and practical.",
+    "p2_title":"Knife sheaths","p2_desc":"Handmade sheaths for knives of any size — reliable protection and beautiful design.",
+    "p3_title":"Bookmarks","p3_desc":"Elegant leather bookmarks for book lovers — a perfect gift.",
+    "p4_title":"Accessories","p4_desc":"Belts, keychains, bracelets and other accessories for your style.",
+    "order_btn":"Order","order_msg":"Hello! I would like to order:",
+    "process_title":"How it's made","process_subtitle":"From leather selection to final polishing — every stage is done by hand.",
+    "s1_title":"Leather selection","s1_desc":"We choose the best natural leather — only high-quality material.",
+    "s2_title":"Cutting","s2_desc":"Precise cutting with a knife and ruler — every detail fits perfectly.",
+    "s3_title":"Hand stitching","s3_desc":"Sewn by hand with waxed thread — a strong and beautiful stitch.",
+    "s4_title":"Final polishing","s4_desc":"Edge polishing and wax finishing — a flawless look.",
+    "why_title":"Why choose us?","why_subtitle":"Quality you can feel in every touch",
+    "w1_title":"Natural leather","w1_desc":"We use only high-quality genuine leather.",
+    "w2_title":"100% handmade","w2_desc":"Every piece is crafted by hand with great love.",
+    "w3_title":"Custom design","w3_desc":"Made your way: size, color, engraving.",
+    "w4_title":"Fast delivery","w4_desc":"Delivery across Georgia and worldwide.",
+    "contact_title":"Contact","contact_subtitle":"Reach out anytime — I'll be happy to answer!",
+    "phone_label":"Phone","location":"Georgia","call_btn":"Call now","wa_btn":"Message on WhatsApp",
+    "footer_text":"© 2026 Mikhail — Handmade leather goods. All rights reserved."
+  },
+  "ru": {
+    "title":"Михаил — Изделия из кожи ручной работы",
+    "nav_home":"Главная","nav_about":"О нас","nav_products":"Продукция","nav_process":"Процесс","nav_why":"Преимущества","nav_contact":"Контакты",
+    "hero_badge":"Ручная работа из Грузии","hero_title":"Изделия из кожи ручной работы",
+    "hero_subtitle":"Кошельки, ножны для ножей, закладки и аксессуары — из натуральной кожи, сделано с любовью и мастерством.",
+    "hero_cta1":"Заказать сейчас","hero_cta2":"Смотреть продукцию",
+    "about_title":"О нас",
+    "about_text1":"Здравствуйте! Я Михаил — мастер по коже. Каждое изделие изготавливается вручную из лучшей натуральной кожи.",
+    "about_text2":"В моей мастерской создаются уникальные вещи, которые будут служить вам годами. Продумана каждая деталь — от дизайна до последнего стежка.",
+    "stat1":"лет опыта","stat2":"довольных клиентов","stat3":"уникальных изделий",
+    "products_title":"Продукция","products_subtitle":"Каждая вещь изготавливается вручную из натуральной кожи. Возможны индивидуальные заказы.",
+    "p1_title":"Кошельки","p1_desc":"Классические и современные кошельки из натуральной кожи — прочные, элегантные и практичные.",
+    "p2_title":"Ножны для ножей","p2_desc":"Ножны ручной работы для ножей любого размера — надёжная защита и красивый дизайн.",
+    "p3_title":"Закладки","p3_desc":"Элегантные кожаные закладки для любителей книг — идеальный подарок.",
+    "p4_title":"Аксессуары","p4_desc":"Ремни, брелоки, браслеты и другие аксессуары для вашего стиля.",
+    "order_btn":"Заказать","order_msg":"Здравствуйте! Хочу заказать:",
+    "process_title":"Ход работы","process_subtitle":"От выбора кожи до финишной полировки — каждый этап выполняется вручную.",
+    "s1_title":"Выбор кожи","s1_desc":"Отбираем лучшую натуральную кожу — только качественный материал.",
+    "s2_title":"Крой","s2_desc":"Точный раскрой ножом и линейкой — каждая деталь идеально подогнана.",
+    "s3_title":"Шитьё","s3_desc":"Ручное шитьё вощёной нитью — прочный и красивый шов.",
+    "s4_title":"Финишная полировка","s4_desc":"Полировка краёв и обработка воском — безупречный вид.",
+    "why_title":"Почему мы?","why_subtitle":"Качество, которое чувствуешь в каждом прикосновении",
+    "w1_title":"Натуральная кожа","w1_desc":"Используем только высококачественную натуральную кожу.",
+    "w2_title":"100% ручная работа","w2_desc":"Каждое изделие изготавливается вручную с большой любовью.",
+    "w3_title":"Индивидуальный дизайн","w3_desc":"Изготовим по вашему желанию: размер, цвет, гравировка.",
+    "w4_title":"Быстрая доставка","w4_desc":"Доставка по Грузии и всему миру.",
+    "contact_title":"Контакты","contact_subtitle":"Свяжитесь со мной в любое время — с радостью отвечу!",
+    "phone_label":"Телефон","location":"Грузия","call_btn":"Позвонить","wa_btn":"Написать в WhatsApp",
+    "footer_text":"© 2026 Михаил — Изделия из кожи ручной работы. Все права защищены."
+  },
+  "tr": {
+    "title":"Mikhail — El Yapımı Deri Ürünler",
+    "nav_home":"Ana Sayfa","nav_about":"Hakkımda","nav_products":"Ürünler","nav_process":"Süreç","nav_why":"Neden Biz","nav_contact":"İletişim",
+    "hero_badge":"Gürcistan'dan el yapımı","hero_title":"El Yapımı Deri Ürünler",
+    "hero_subtitle":"Cüzdanlar, bıçak kılıfları, ayraçlar ve aksesuarlar — doğal deriden, sevgi ve ustalıkla üretilmiştir.",
+    "hero_cta1":"Şimdi Sipariş Ver","hero_cta2":"Ürünleri Gör",
+    "about_title":"Hakkımda",
+    "about_text1":"Merhaba! Ben Mikhail — deri ustasıyım. Her ürün en iyi doğal deriden elle yapılmaktadır.",
+    "about_text2":"Atölyemde yıllarca size hizmet edecek benzersiz ürünler yaratıyorum. Tasarımdan son dikişe kadar her detay özenle düşünüldü.",
+    "stat1":"yıl deneyim","stat2":"mutlu müşteri","stat3":"benzersiz ürün",
+    "products_title":"Ürünler","products_subtitle":"Her ürün doğal deriden elle yapılmaktadır. Özel siparişler kabul edilir.",
+    "p1_title":"Cüzdanlar","p1_desc":"Hakiki deriden klasik ve modern cüzdanlar — dayanıklı, zarif ve pratik.",
+    "p2_title":"Bıçak Kılıfları","p2_desc":"Her boyutta bıçak için el yapımı kılıflar — güvenilir koruma ve güzel tasarım.",
+    "p3_title":"Ayraçlar","p3_desc":"Kitap severler için zarif deri ayraçlar — mükemmel bir hediye.",
+    "p4_title":"Aksesuarlar","p4_desc":"Tarzınız için kemerler, anahtarlıklar, bileklikler ve diğer aksesuarlar.",
+    "order_btn":"Sipariş Ver","order_msg":"Merhaba! Sipariş vermek istiyorum:",
+    "process_title":"Çalışma süreci","process_subtitle":"Deri seçiminden son cilaya kadar — her aşama elle yapılır.",
+    "s1_title":"Deri seçimi","s1_desc":"En iyi doğal deriyi seçiyoruz — yalnızca kaliteli malzeme.",
+    "s2_title":"Kesim","s2_desc":"Bıçak ve cetvelle hassas kesim — her parça mükemmel oturur.",
+    "s3_title":"Dikiş","s3_desc":"Balmumlu iplikle elde dikiş — sağlam ve güzel dikiş.",
+    "s4_title":"Son cila","s4_desc":"Kenar parlatma ve balmumu ile bitirme — kusursuz görünüm.",
+    "why_title":"Neden biz?","why_subtitle":"Her dokunuşta hissedilen kalite",
+    "w1_title":"Doğal deri","w1_desc":"Yalnızca yüksek kaliteli hakiki deri kullanıyoruz.",
+    "w2_title":"%100 el yapımı","w2_desc":"Her ürün büyük bir sevgiyle elle yapılmaktadır.",
+    "w3_title":"Özel tasarım","w3_desc":"İsteğinize göre üretiyoruz: boyut, renk, gravür.",
+    "w4_title":"Hızlı teslimat","w4_desc":"Gürcistan genelinde ve dünyaya teslimat.",
+    "contact_title":"İletişim","contact_subtitle":"İstediğiniz zaman ulaşın — memnuniyetle cevaplarım!",
+    "phone_label":"Telefon","location":"Gürcistan","call_btn":"Ara","wa_btn":"WhatsApp'tan Yaz",
+    "footer_text":"© 2026 Mikhail — El yapımı deri ürünler. Tüm hakları saklıdır."
+  }
+};
+
+let lang = localStorage.getItem("lang") || "ge";
+
+function setLang(l){
+  lang = l;
+  localStorage.setItem("lang", l);
+  document.documentElement.lang = (l === "ge") ? "ka" : l;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const k = el.getAttribute("data-i18n");
+    if (T[l] && T[l][k] !== undefined) el.textContent = T[l][k];
+  });
+  document.querySelectorAll(".lang-btn").forEach(b => b.classList.toggle("active", b.dataset.lang === l));
+}
+document.querySelectorAll(".lang-btn").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+
+/* Menu */
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const burger  = document.getElementById("burger");
+function menu(open){
+  sidebar.classList.toggle("open", open);
+  overlay.classList.toggle("show", open);
+  burger.classList.toggle("active", open);
+  document.body.classList.toggle("menu-open", open);
+}
+burger.addEventListener("click", () => menu(!sidebar.classList.contains("open")));
+document.getElementById("closeSide").addEventListener("click", () => menu(false));
+overlay.addEventListener("click", () => menu(false));
+document.querySelectorAll(".side-nav a").forEach(a => a.addEventListener("click", () => menu(false)));
+
+/* Order buttons -> WhatsApp with prefilled message in current language */
+document.querySelectorAll(".order-btn").forEach(b => b.addEventListener("click", () => {
+  const product = T[lang][b.dataset.product + "_title"];
+  const msg = T[lang].order_msg + " " + product;
+  window.open("https://wa.me/" + PHONE_WA + "?text=" + encodeURIComponent(msg), "_blank");
+}));
+
+setLang(lang);
+</script>
+</body>
+</html>
